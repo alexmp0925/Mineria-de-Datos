@@ -1,7 +1,10 @@
 import pandas as pd
+import os
 
-#Cargar datos
-path = r'C:\Users\conti\Downloads\practica1\Afluencia Diaria del Metro CDMX.csv'
+
+dir_actual = os.path.dirname(__file__)
+path = os.path.join(dir_actual, 'Afluencia_Metro_Limpio.csv')
+# Cargar datos
 df = pd.read_csv(path)
 
 
@@ -10,7 +13,8 @@ df['linea'] = df['linea'].astype(str).str.strip()
 df['linea'] = df['linea'].str.replace(r'^L.*nea', 'Linea', regex=True, case=False)
 df['estacion'] = df['estacion'].astype(str).str.strip()
 por_linea = df.groupby('linea')['afluencia'].sum().sort_values(ascending=False)
-print(por_linea)
+
+#print(por_linea)
 
 
 # limpiar datos
